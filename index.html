@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width">
+        <title>d3 and Cal Answers</title>
+         <link rel="stylesheet" type="text/css" href="base.css">
+</head>
+
+<style type="text/css">
+  .intro {
+    margin: 20px 0;
+  }
+  .class-calendar ol {
+    font-family: "Helvetica Neue";
+    width: 100%;
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+  }
+  .class-calendar a {
+    position: relative;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 20px;
+    line-height: 1.4em;
+  }
+  .class-calendar a:hover .title{
+    border-color: rgba(0, 0, 0, 0.6);
+  }
+  .class-calendar a:hover .title h4 {
+    text-decoration: underline;
+  }
+  .class-calendar .date {
+    font-weight: normal;
+    position: absolute;
+    width: 85px;
+    text-align: right;
+    color: rgba(0, 0, 0, 0.6);
+  }
+  .class-calendar .title {
+    border-left: solid 1px rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+    padding: 0 0 0 15px;
+    margin-left: 100px;
+    display: block;
+  }
+  .class-calendar .description {
+    font-weight: normal;
+    color: rgba(0, 0, 0, 0.6);
+    margin-top: 5px;
+    display: block;
+  }
+</style>
+<body>
+ 
+<header><span>UC Berkeley Office of Planning and Analysis</span></header>
+
+<div class="main">
+  <h1>d3 and Cal Answers</h1>
+
+    <div class="intro">
+  <h3>Overview</h3>
+    <p>This series of sessions teaches some of the skills and techniques necessary for building simple data visualizations in Cal Answers using d3.js. Participants will primarily use HTML, CSS and Javascript (and JS libraries like <a href="http://d3js.org/">D3</a>), and, in some cases, <a href="http://en.wikipedia.org/wiki/Command-line_interface">command-line tools</a>.</p>
+    <p>This will be a technical course, but the primary goal of the course is exposure to d3 and some awareness of its potential; by the end of the sessions, you should have some ideas about how d3 can be used to improve the campus' access to data in Cal Answers.</p>
+  </div>
+  
+  <div>
+    <h3>Session Schedule</h3>
+    <p>Sessions will take place on Wednesdays in Aug for approximately two hours.</p>
+    <div class="class-calendar">
+      <ol>
+        <li>
+          <span class="date">Aug 12</span>
+          <span class="title">
+            <h4>Getting started: configuring your computers, getting software, hacking 101</h4>
+            <span class="description">Overview of HTML, CSS, Javascript and getting up to speed with github, the terminal, and the software you'll need for our sessions.</span>
+          </span>
+        </li>
+        <li>
+          <span class="date">Aug 19</span>
+          <span class="title">
+            <h4>Creating a simple bar chart for the 4.5 year grad rate using Cal Answers data</h4>
+            <span class="description">Loading Cal Answers data into a bar chart, adding axes, labels, colors.</span>
+          </span>
+        </li>
+        <li>
+          <span class="date">Aug 26</span>
+          <span class="title">
+            <h4>Creating a stacked bar chart for all graduation rates</h4>
+            <span class="description">More colors, a legend, adding interactivity.</span>
+          </span>
+        </li>
+        <li>
+          <span class="date">Sep 9</span>
+          <span class="title">
+            <h4>Adding our new stacked bar chart back into Cal Answers</h4>
+            <span class="description">Using the CalAnswers narrative view, debugging within OBIEE.</span>
+          </span>
+        </li>
+        <li>
+          <span class="date">tbd</span>
+          <span class="title">
+            <h4>Additional sessions, as time permits</h4>
+            <span class="description">tbd</span>
+          </span>
+        </li> 
+      </ol>
+    </div>
+  </div>
+
+
+  <div class="useful-links">
+    <h3>Useful links</h3>
+    <ul>
+      <li><a href="http://d3js.org/">The D3.js web site</a> is actually a great place to start. From there, you can see the <a href="https://github.com/mbostock/d3/wiki/Gallery">examples gallery</a>. There is also a list of resources <a href="https://github.com/mbostock/d3/wiki/Tutorials"> (tutorials, techniques, talks/videos) </a> and the d3 wiki begins with <a href="https://github.com/mbostock/d3/wiki">info on getting up and running.</a></li>
+      <li>Free to the UC Berkeley community is an O'Reilly book by Scott Murray called:<a href="http://proquest.safaribooksonline.com/book/web-design-and-development/9781449340223"> Interactive Data Visualization for the Web</a></li>
+    </ul>
+  </div>
+   <div class="about">
+    <h3>Your Facilitator</h3>
+    <p><a href="http://bl.ocks.org/saraquigley/">Sara Quigley</a> -  resident data viz analyst in the Office of Planning & Analysis</p>
+    <p>
+    <p>
+  </div>
+</div>
+<script type="text/javascript" src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+</body>
+<script>
+var colors = d3.scale.ordinal().range(["#92c5de","#4393c3","#2166ac","#053061","#7f3b08","#b35806","#e08214","#fdb863","#fee0b6","#fdb863", "#e08214", "#b35806", "#7f3b08", "#053061", "#2166ac", "#4393c3", "#92c5de"]),
+     headline = d3.select("h1"),
+     letters = headline.text().split("");
+
+headline.text("");
+
+var greenLetters = headline.selectAll("span")
+    .data(letters)
+  .enter().append("span")
+    .text(function(d) { return d; })
+    .style("position", "relative");
+
+  // d3.timer(function(t) {
+
+  t = Math.random();
+  greenLetters
+      .transition().duration(1000)
+      .style("color", function(d, i) {
+        return colors(i);
+      });
+</script>
+</html>
