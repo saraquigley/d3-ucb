@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Getting started</title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="assets/base.css">
+        <link rel="stylesheet" href="assets/syntax.css">
+
+        <!-- Custom CSS -->
+        <!-- <link rel="stylesheet" href="/assets/main.css"> -->
+
+    </head>
+    <body>
+        <div class="main">
+
+            <header>
+  <a href="/">UCB — Summer 2015</a> / <span>Session 1</span>
+</header>
+
+<h1>Getting Started</h1>
+
+<div class="lesson">
+
+<h2>Introduction</h2>
+
+<p>Welcome!! In the interest of not reinventing the wheel, for this getting-up-and-running session, I will be leveraging the many existing d3 resources and tutorials that are already out in the wild.</p>
+
+<ol>These include:
+<li>Scott Murray's book <a href='http://proquest.safaribooksonline.com/book/web-design-and-development/9781449340223' target='_blank'>Interactive Data Visualization for the Web</a>, particularly chapters 3 and 4: <a href='http://proquest.safaribooksonline.com/book/web-design-and-development/9781449340223/3dot-technology-fundamentals/id789343' target='_blank'>Technology Fundamentals</a> and <a href='http://proquest.safaribooksonline.com/book/web-design-and-development/9781449340223/4dot-setup/id378809' target='_blank'>Setup</a>.</li>
+<li>Kevin Quealy & Amanda Cox's <a href='http://kpq.github.io/nyu-data-journalism-2014/' target='_blank'>lecture notes explaining how to configure your laptop</a> from their NYU Data Journalism class (Spring 2014)</li>
+<li>Mike Bostock's d3 tutorials at <a href='https://github.com/mbostock/d3/wiki/Tutorials' target='_blank'>d3js.org</a></li>
+<li>Mike Freeman's <a href='http://faculty.washington.edu/mikefree/info343/lectures/d3/#/' target='_blank'> d3 intro lecture</a> from his Summer 2015 web dev course at the University of Washington</li>
+</ol>
+
+<h2>But first, I have a question for you:</h2>
+
+<p>What do <strong> you</strong>  want to get out of these sessions?</p>
+
+<h2>Getting your machines set up</h2>
+<p>We're going to establish the process by which you can fork <a href='https://github.com/mbostock/d3/wiki/Gallery#basic-charts' target='_blank'>existing d3 examples</a> that you find on the web and develop with them locally.</p>
+
+<ol>
+<li><p>Everyone should download a <strong>text editor</strong> to their laptop, if they have one. </p>
+
+<p>For <strong>Mac</strong> users, I strongly recommend <a href="http://www.sublimetext.com/2">Sublime Text 2</a>. It eventually costs $70, but you can use it for free for a while. Other alternatives include <a href="http://www.barebones.com/products/textwrangler/">TextWrangler</a> (free) or <a href="http://www.barebones.com/products/bbedit/">BBEdit</a> (not free).</p>
+
+<p><strong>PC</strong> Users might consider Notepad or <a href="http://notepad-plus-plus.org/">Notepad++</a>.</p></li>
+<!-- <li><p>Next, we need to make sure Git is installed on all our computers. Here&rsquo;s <a href="http://git-scm.com/book/en/Getting-Started-Installing-Git">a helper</a>. If you have a Mac, you probably have it installed already. We&rsquo;ll do this together.</p></li> -->
+<li><p>Let's create a project folder where we can save our work. </p><p>I recommend calling it <strong>d3-training</strong>.</p> <p></p></li>
+
+<li><p>Now download the <strong>d3 library</strong>, the latest version is here: <a href='https://github.com/mbostock/d3/releases'>https://github.com/mbostock/d3/releases</a> </p><p>Unzip its contents and place them under your project folder.</p> 
+
+<li><p>Next let's create an HTML file called <code>index.html</code> and save it under our project folder.</p> <p>Open your text editor and paste the following template code in there:</p>
+    <pre><code class='html'>
+        &lt;!DOCTYPE html&gt;
+        &lt;html lang="en"&gt;
+            &lt;head&gt;
+                &lt;meta charset="utf-8"&gt;
+                &lt;title&gt;D3 Test&lt;/title&gt;
+                &lt;script type="text/javascript" src="d3/d3.v3.js"&gt;&lt;/script&gt;
+            &lt;/head&gt;
+            &lt;body&gt;
+                &lt;div&gt;Hello There&lt;/div&gt;
+                &lt;script type="text/javascript"&gt;
+                    // Your beautiful D3 code will go here
+                &lt;/script&gt;
+            &lt;/body&gt;
+        &lt;/html&gt;     
+    </code></pre>
+    <p>Your folder structure should now look something like this:</p>
+    <p><img class='fitty' src='d3-training-project-folder.png' ></p>
+</li>
+
+<li><p>When developing locally, note that your browser may enforce strict permissions for reading files out of the local file system. The way around this is to use a <strong>local web server</strong>. There are many options here, but we're going to go with Python's built-in server.</p> <p>If you have a <strong>Mac</strong>, Python should already be installed. </p><p>If you're on a <strong>PC</strong>, then you need to get Python from <a href="https://www.python.org/downloads/windows/">here</a>. Once you've downloaded version 2.7, we'll need to add <code>C:\Python25\Scripts;</code> to your PATH environment variable. More details on how to do that are <a href="http://www.stat.ucla.edu/~rosario/classes/07F/202a/python/">here</a>.</p><p>Finally, via the command line, navigate into the directory that you want served. For example, if your project folder is in your Documents folder on your Mac, you could type: <br><code>cd ~/Documents/d3-training</code></p><p>Then start your server by typing <code> python -m SimpleHTTPServer 8888 &</code>  into the command line.</p></li>
+
+<li><p>Okay, now let's open a modern browser and bring up <code>localhost:8888/d3-training</code> to see if we can see our HTML page</p></li>
+<li><p>There are multiple ways to fork examples on bl.ocks.org. To save time, we are going to do it manually via Github's Gist editor. A more efficient workflow would be to get <a href='https://git-scm.com/downloads' target='_blank'>git</a>, a free and open source distributed version control system, and follow Mike Bostock's instuctions <a href='http://bost.ocks.org/mike/block/' target='_blank'>here</a>.</p></li>
+</ol>
+
+<h3>The steps for creating a bl.ock ...for now</h3>
+<p>Coming this fall, a new app will be released which will allow anyone to create, fork and edit d3.js code snippets for use with bl.ocks.org right in the browser, no terminal required. The app began as a <a href='https://www.kickstarter.com/projects/1058500513/building-blocks-0' target='_blank'>Kickstarter</a> project to support its development.</p><p> In the meantime, however, here are the steps (as described by Ian Johnson when making the case for his Kickstarter campaign):</p>
+<!-- <ol>
+<li><p>find a block to fork, such as this one</p></li>
+<li><p>navigate to its</p></li>
+<li><p>clone it</p></li>
+<li><p>make sure it works locally</p></li>
+</ol> -->
+<p><img src="fork-a-gist.png"></p>
+
+<p>Once you're up and running with forking examples and making your own stuff and are ready to <strong>publish</strong> to a github gist (i.e. step 10 in Ian's list below), you can follow the steps as outlined by Kevin Quealy and Amanda Cox <a href='http://kpq.github.io/nyu-data-journalism-2014/classes/intro-and-leaflet/' target='_blank'>here</a>.</p>
+
+
+</div>
+
+
+        </div> <!-- /main -->
+
+        <!-- <script src="/assets/base.js" charset="utf-8"></script> -->
+
+    </body>
+</html>
