@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>A simple bar chart</title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="assets/base.css">
+        <link rel="stylesheet" href="assets/syntax.css">
+
+    </head>
+    <body>
+        <div class="main">
+
+            <header>
+  <a href="..">UCB — Summer 2015</a> / <span>Session 2</span>
+</header>
+
+<h1>Creating a bar chart</h1>
+
+<div class="lesson">
+
+<h2>Introduction</h2>
+
+<p>Hello again!! In today's session, we will a) finish talking about a few things that we didn't get to last session, and b) create a simple bar chart for the 4.5 year grad rate using Cal Answers data.</p>
+
+<ol>Here are some resources that are related to what we're going to cover:
+<li>Mike Freeman's <a href='http://faculty.washington.edu/mikefree/info343/lectures/d3/#/' target='_blank'> d3 intro lecture</a> from his Summer 2015 web dev course at the University of Washington</li>
+<li>Jerome Cukier's <a href='http://www.jeromecukier.net/wp-content/uploads/2012/10/d3-cheat-sheet.pdf' target='_blank'>d3 cheat sheet</a> </li>
+<li>The <a href='https://github.com/mbostock/d3/wiki/API-Reference' target='_blank'>d3 API Reference</a>.</li>
+<li>Zan Armstrong's <a href='http://bl.ocks.org/zanarmstrong/raw/05c1e95bf7aa16c4768e/' target='_blank'>formatting numbers examples</a>.</li>
+<li>Scott Murray's book <a href='http://proquest.safaribooksonline.com/book/web-design-and-development/9781449340223' target='_blank'>Interactive Data Visualization for the Web</a>, particularly chapters 6, 7 and 8: <a href='http://proquest.safaribooksonline.com/book/web-design-and-development/9781449340223/4dot-setup/id378809#X2ludGVybmFsX0h0bWxWaWV3P3htbGlkPTk3ODE0NDkzNDAyMjMlMkZpZDgzMTQwMiZxdWVyeT0=' target='_blank'>Data</a>, <a href='http://proquest.safaribooksonline.com/book/web-design-and-development/9781449340223/4dot-setup/id378809#X2ludGVybmFsX0h0bWxWaWV3P3htbGlkPTk3ODE0NDkzNDAyMjMlMkZpZDg0ODg3MCZxdWVyeT0=' target='_blank'>Scales</a> and <a href='http://proquest.safaribooksonline.com/book/web-design-and-development/9781449340223/4dot-setup/id378809#X2ludGVybmFsX0h0bWxWaWV3P3htbGlkPTk3ODE0NDkzNDAyMjMlMkZpZDgzMDg4NiZxdWVyeT0=' target='_blank'>Axes</a>.</li>
+</ol>
+
+<h2>Before we begin...</h2>
+
+<p>Does anyone have any questions?</p>
+
+<h2>… Continuing from last session</h2>
+<p>Let's briefly return to Mike Freeman's <a href='http://faculty.washington.edu/mikefree/info343/lectures/d3/#/' target='_blank'> d3 intro lecture</a> from his Summer 2015 web dev course at the University of Washington to take a look at:</p>
+
+<ol>
+<li><p>Binding Data : <a href="http://faculty.washington.edu/mikefree/info343/lectures/d3/#/21" target='_blank'>enter() and exit() selections</a></p></li>
+<li><p>Binding Data : <a href="http://faculty.washington.edu/mikefree/info343/lectures/d3/#/36" target='_blank'>using .call()</a></p></li>
+<li><p>Scales : <a href="http://faculty.washington.edu/mikefree/info343/lectures/d3/#/40" target='_blank'>brief scale intro</a></p></li>
+</ol>
+
+<h2>A few more key concepts</h2>
+<p>Let's talk about a few more key concepts that we will then apply to our bar chart.</p>
+<ol>
+<li><p>Again, <i>"Scales are functions that map from an input domain to an output range.”</i> <br>- Mike Bostock</p>
+<p><a href="https://github.com/mbostock/d3/wiki/Quantitative-Scales" target='_blank'>Quantitative Scales</a> - for continuous input domains, such as numbers.</p>
+<p><a href="https://github.com/mbostock/d3/wiki/Ordinal-Scales" target='_blank'>Ordinal Scales</a> - for discrete input domains, such as names or categories.</p>
+<p><a href="https://github.com/mbostock/d3/wiki/Time-Scales" target='_blank'>Time Scales</a> - for time domains.</p>
+<li><p>Axes</p>
+<p>D3 has an <a href="https://github.com/mbostock/d3/wiki/SVG-Axes" target='_blank'>axis component</a>, for which you define the parameters (orientation, tick values, tick format) and d3 takes care of the tedious task of drawing axes and labeled ticks. Then you can use CSS to clean up your scales.</p>
+</li>
+<li><p>Loading data</p><p>D3 has convenience methods for loading data in the following formats: text, html, json, csv, tsv, xml (and others.) We are going to focus on loading csv data today.</p>
+<pre><code class='html'>
+        &lt;script type="text/javascript"&gt;
+
+            d3.csv("myData.csv", function(csv) { 
+                console.log(data);
+            });
+
+        &lt;/script&gt;     
+    </code></pre>
+    <p></p>
+</li>
+<li><p>Manipulating data</p>
+    <p><code>array.filter()</code> - Create a new array with only the elements for which a predicate is true. (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter" target='_blank'>reference</a>)</p>
+<!-- var numbers = [1, 4, 9];
+var small_numbers = numbers.filter(function(d) {return d < 5;});
+// numbers is [1,4,9]. small_numbers is [1,4] -->
+    <p><code>array.map()</code> - Create a new array with the result of calling a function on every element in the array. (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map" target='_blank'>reference</a>)</p>
+<!--     var numbers = [1, 4, 9];
+    var doubles = numbers.map(function(num) {
+      return num * 2;
+    });
+    // doubles is now [2, 8, 18]. numbers is still [1, 4, 9] -->
+</li>
+<li><p><a href="https://github.com/mbostock/d3/wiki/Formatting" target='_blank'>Formatting data</a></p>
+    <p>Numbers : <code>d3.format(<i>specifier</i>)</code></p>
+    <!-- var formatNum = d3.format(",.2f");
+    var num = 5663.789;
+    formatNum(num);
+    var formatNum = d3.format(",.0f"); -->
+    <p>Time : <code>d3.time.format(<i>specifier</i>)</code></p>
+    <!-- var formatDate = d3.time.format("%Y");
+    var date = new Date();
+    formatDate(date);
+    var formatNum = d3.format(",.0f"); -->
+</li>
+
+
+<li><p>Google Chrome developer tools : In Chrome 44, you can get there via View ... Developer ... Javascvript Console.</p></li>
+</ol>
+<h2>Now let’s do this ... </h2>
+<ol>
+<li><p>First go to the Cal Answers <a href='https://calanswers-bi.berkeley.edu:9804/analytics/saw.dll?Dashboard&PortalPath=%2Fshared%2FStudent%20Demographics%20%26%20Outcomes%2F_portal%2FGraduation%20%26%20Retention&Page=UG%20Grad%20Rates&PageIdentifier=56d8g3lek4vr2cf7&BookmarkState=0qh5rk1jqqovasm398bg6eu9l6' target='_blank'>UG Grad Rate dashboard and have a look at what we are going to be working with.</a></p></li>
+<li><p>Next copy the query behind the dashboard and save it locally in your own folder in CalAnswers.</p></li>
+<li><p>We are going to work with a subset of the results, so modify this query as follows: restrict the applicant type to Freshmen and the term to Fall and only retrieve data for 2003 or later.</p></li>
+<li><p>Modify the query to allow for null values: On the results tab, click on the Edit Analysis Properties button and choose the Data tab in the dialog. Check the box that says Include Null Values.</p></li>
+<li><p>Now download the data from the query to your machine as a csv.</p></li>
+<li><p>Inspect the data on your machine and change the column headers so that they do not contain spaces, for example change "Semester Year Letter Cd Concat" to "semesterYearLetter".</p></li>
+<li><p>Next you can either use the HTML file called <code>index.html</code> that we created under d3-training last time, or you can create a new one called <code>index.html</code> and save it in a new folder under our project folder.</p></li>
+
+
+<li><p>Okay, now let's open a modern browser and bring up <code>localhost:8888/d3-training</code> to see if we can see our HTML page</p></li>
+<li><p>Now let's add some javascript to our HTML file that will build our chart. If you want to just follow along, you can see what our final chart will end up looking like <a href='http://bl.ocks.org/saraquigley/9067a9e3b0a343ab1747' target='_blank'>here</a>.</p></li>
+</ol>
+
+</div>
+<div class="end">
+        <h3> </h3>
+    </div>
+
+        </div> <!-- /main -->
+        
+    </body>
+</html>
