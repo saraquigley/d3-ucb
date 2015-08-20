@@ -105,14 +105,9 @@ var small_numbers = numbers.filter(function(d) {return d < 5;});
 <h2>Now let’s do this ... </h2>
 <ol>
 <li><p>First go to the Cal Answers <a href='https://calanswers-bi.berkeley.edu:9804/analytics/saw.dll?Dashboard&PortalPath=%2Fshared%2FStudent%20Demographics%20%26%20Outcomes%2F_portal%2FGraduation%20%26%20Retention&Page=UG%20Grad%20Rates&PageIdentifier=56d8g3lek4vr2cf7&BookmarkState=0qh5rk1jqqovasm398bg6eu9l6' target='_blank'>UG Grad Rate dashboard and have a look at what we are going to be working with.</a></p></li>
-<li><p>Next copy the query behind the dashboard and save it locally in your own folder in CalAnswers.</p></li>
-<li><p>We are going to work with a subset of the results, so modify this query as follows: restrict the applicant type to Freshmen and the term to Fall and only retrieve data for 2003 or later.</p></li>
-<li><p>Modify the query to allow for null values: On the results tab, click on the Edit Analysis Properties button and choose the Data tab in the dialog. Check the box that says Include Null Values.</p></li>
-<li><p>Now download the data from the query to your machine as a csv.</p></li>
+<li><p>Scroll to the bottom of the dashboard page and click the Export link. Choose Data ... CSV Format.</p></li>
 <li><p>Inspect the data on your machine and change the column headers so that they do not contain spaces, for example change "Semester Year Letter Cd Concat" to "semesterYearLetter".</p></li>
 <li><p>Next you can either use the HTML file called <code>index.html</code> that we created under d3-training last time, or you can create a new one called <code>index.html</code> and save it in a new folder under our project folder.</p></li>
-
-
 <li><p>Okay, now let's open a modern browser and bring up <code>localhost:8888/d3-training</code> to see if we can see our HTML page</p></li>
 <li><p>Now let's add some javascript to our HTML file that will build our chart. If you want to just follow along, you can see what our final chart will end up looking like <a href='http://bl.ocks.org/saraquigley/9067a9e3b0a343ab1747' target='_blank'>here</a>.</p></li>
 </ol>
@@ -125,4 +120,14 @@ var small_numbers = numbers.filter(function(d) {return d < 5;});
         </div> <!-- /main -->
         
     </body>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-53090028-11', 'auto');
+  ga('send', 'pageview');
+
+</script>
 </html>
