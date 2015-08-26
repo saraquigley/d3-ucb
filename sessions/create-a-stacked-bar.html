@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>A stacked bar chart</title>
+        <meta name="viewport" content="width=device-width">
+         <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="assets/base.css">
+        <link rel="stylesheet" href="assets/syntax.css">
+
+    </head>
+    <body>
+        <div class="main">
+
+            <header>
+  <a href="..">UCB — Summer 2015</a> / <span>Session 3</span>
+</header>
+
+<h1>A <span id="stacked">stacked</span> bar chart</h1>
+
+<div class="lesson">
+
+<h2>Introduction</h2>
+
+<p>Hello again!! In today's session, we will finish last session's project of building a bar chart. Then, we'll manipulate our data another way to create a stacked bar chart of all grad rates.</p>
+
+<ol>Here are some great resources that are related to what we're going to cover:
+<li>Phoebe Bright's <a href='http://bl.ocks.org/phoebebright/raw/3176159/' target='_blank'>d3.nest() examples</a></li>
+<li>Shan Carter's <a href='http://bl.ocks.org/shancarter/raw/4748131/' target='_blank'>Mister Nester</a></li>
+<li><code>d3.layout.stack()</code> in the <a href='https://github.com/mbostock/d3/wiki/Stack-Layout' target='_blank'> d3 API documentation</a></li>
+<li>Justin Palmer's <a href='https://github.com/caged/d3-tip' target='_blank'>d3.tip()</a></li>
+<li>Scott Murray's book <a href='http://proquest.safaribooksonline.com/book/web-design-and-development/9781449340223' target='_blank'>Interactive Data Visualization for the Web</a>, particularly chapters 10 and 11: <a href='http://proquest.safaribooksonline.com/book/web-design-and-development/9781449340223/4dot-setup/id378809#X2ludGVybmFsX0h0bWxWaWV3P3htbGlkPTk3ODE0NDkzNDAyMjMlMkZpZDkxMTczNyZxdWVyeT0=' target='_blank'>Interactivity</a> and <a href='http://proquest.safaribooksonline.com/book/web-design-and-development/9781449340223/4dot-setup/id378809#X2ludGVybmFsX0h0bWxWaWV3P3htbGlkPTk3ODE0NDkzNDAyMjMlMkZpZDkxNzEzNyZxdWVyeT0=' target='_blank'>d3.stack.layout()</a> </li>
+</ol>
+
+<h2>Before we begin...</h2>
+
+<p>Does anyone have any questions?</p>
+
+<h2>… Continuing from last session</h2>
+<p>Let's walk through the code for <a href='http://bl.ocks.org/saraquigley/9067a9e3b0a343ab1747' target='_blank'>a simple bar chart.</a> </p>
+
+<ol>
+<li><p><code>array.filter()</code></p></li>
+<li><p>setting up the x scale</p></li>
+<li><p>labels</p></li>
+</ol>
+
+<h2>Stacked Bar Chart</h2>
+<p>Let's talk about a few more key concepts that we will then apply to our bar chart.</p>
+<ol>
+<li><p><code>d3.nest()</code> first with some <a href='http://bl.ocks.org/phoebebright/raw/3176159/' target='_blank'>nest examples</a> and then with <a href='http://bl.ocks.org/shancarter/raw/4748131/' target='_blank'>Mister Nester</a></p>
+<p>"Nesting allows elements in an array to be grouped into a hierarchical tree structure; think of it like the GROUP BY operator in SQL, except you can have multiple levels of grouping, and the resulting output is a tree rather than a flat table. The levels in the tree are specified by key functions. The leaf nodes of the tree can be sorted by value, while the internal nodes can be sorted by key. An optional rollup function will collapse the elements in each leaf node using a summary function." - d3.nest() as introduced in the <a href='https://github.com/mbostock/d3/wiki/Arrays#-nest'target='_blank'>d3 API documentation</a></p></li>
+<li><p><code>d3.layout.stack()</code></p>
+<p>"<i>Contrary to what the name implies, D3 layouts do not, in fact, lay anything out for you on the screen. The layout methods have no direct visual output. Rather, D3 layouts take data that you provide and remap or otherwise transform it, thereby generating new data that is more convenient for a specific visual task. It’s still up to you to take that new data and generate visuals from it.</i>" - Scott Murray in Chapter 11 of <a href='http://proquest.safaribooksonline.com/book/web-design-and-development/9781449340223' target='_blank'>Interactive Data Visualization for the Web</a></p>
+<p>The stack layout takes an array of layer objects with <code>x</code> and <code>y</code> coordinates and outputs the same layers but adds a baseline <code>y0</code> so that the layers can easily be stacked. Let's play around with <a href='https://gist.github.com/saraquigley/42c1ea36e0c5d77d9658' target='_blank'>this lil data set</a> to see what the stack layout really does.</p>
+</li>
+<li><p><code>d3.tip()</code></p>
+<p>The sky's the limit for how you can incorporate tooltips into a d3 visualization. Scott Murray covers svg and html <a href='http://proquest.safaribooksonline.com/book/web-design-and-development/9781449340223/4dot-setup/id378809#X2ludGVybmFsX0h0bWxWaWV3P3htbGlkPTk3ODE0NDkzNDAyMjMlMkZpZDkxMTczNyZxdWVyeT0=' target='_blank'> tooltips in Chapter 10</a> of his book; today we are going to incorporate Justin Palmer's d3.tip() into our mix: <a href='http://labratrevenge.com/d3-tip/' target='_blank'> D3.tip download page </a> and <a href='http://bl.ocks.org/Caged/6476579'target='_blank'> a d3.tip() example</a>.</p>
+</li>
+
+<h2>Now let’s do this ... </h2>
+<ol>
+<li><p>Again, go to Cal Answers and copy the query behind the dashboard and save it locally in your own folder in CalAnswers. (Catalog... Shared Folders ... Student Demographics & Outcomes" ... Graduation & Retention and edit the query called <strong>UGCohort Grad Data</strong>.)</p></li>
+<li><p>We are going to work with a subset of the results, so modify this query as follows: restrict the applicant type to <strong>Freshmen</strong> and the term to <strong>Fall</strong> and only retrieve data for <strong>2003</strong> or later.</p></li>
+<li><p>Modify the query to allow for null values: On the results tab, click on the Edit Analysis Properties button and choose the Data tab in the dialog. Check the box that says <strong>Include Null Values</strong>.</p></li>
+<li><p>Now download the data from the query to your machine as a csv and save it under d3-training in a new folder called something like "stacked-bar"</p></li>
+<li><p>Inspect the data file on your machine and change the column headers so that they do not contain spaces, for example change <strong>Semester Year Letter Cd Concat</strong> to <strong>semesterYearLetter</strong>.</p></li>
+<li><p>Next you can either copy the contents of the HTML file called <code>index.html</code> that we created under d3-training a few sessions ago, or you can create a new one called <code>index.html</code> and save it in a new folder under our project folder.</p></li>
+<li><p>Now let's add some javascript to our HTML file that will build our chart. If you want to just follow along, you can see what our final chart will end up looking like <a href='http://bl.ocks.org/saraquigley/f91612ff669b41faf33f' target='_blank'>here</a>.</p></li>
+</ol>
+
+</div>
+<div class="end">
+        <h3> </h3>
+    </div>
+
+</div> <!-- /main -->
+        
+    </body>
+    <script>
+var colors = d3.scale.ordinal().range(["#1a9850", "#66bd63", "#a6d96a", "#d9ef8b", "#fee08b", "#fdae61", "#f46d43", "#d73027"]),
+     headline = d3.select("#stacked"),
+     letters = headline.text().split("");
+
+headline.text("");
+var blueLetters = headline.selectAll("span")
+    .data(letters)
+  .enter().append("span")
+    .text(function(d) { return d; })
+    .style("position", "relative");
+
+
+  blueLetters
+      .transition().delay(1000).duration(1000)
+      .style("color", function(d, i) {
+        return colors(i);
+      });
+</script>
+</html>
