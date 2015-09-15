@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>d3 in Cal Answers</title>
+        <meta name="viewport" content="width=device-width">
+         <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="assets/base.css">
+        <link rel="stylesheet" href="assets/syntax.css">
+
+    </head>
+    <body>
+        <div class="main">
+
+            <header>
+  <a href="..">UCB — Summer 2015</a> / <span>Session 4</span>
+</header>
+
+<h1><span id="stacked">d3 in Cal Answers</span></h1>
+
+<div class="lesson">
+
+<h2>Today's session</h2>
+
+<p>In today's session, we will finish creating a stacked bar chart of all grad rates and add it to the Cal Answers development environment.</p>
+
+<ol>For more detailed information on how to put d3 into OBIEE, see this blog post:
+<li>Kevin McGinley's blog post covers how to use <a href='https://medium.com/red-pill-analytics/3rd-party-visualizations-in-obiee-18478d45cae3' target='_blank'>d3.js in OBIEE</a></li>
+</ol>
+
+<h2>Before we begin...</h2>
+
+<p>Does anyone have any questions?</p>
+
+<h2>… Continuing from last session</h2>
+<p>Let's walk through the code for <a href='http://bl.ocks.org/saraquigley/raw/f91612ff669b41faf33f/' target='_blank'>a stacked bar chart.</a> </p>
+
+<!-- <h2>If there's time, show some alternate ways to present the data</h2> -->
+
+
+<h2>Now let’s add the chart to Cal Answers </h2>
+<ol>
+  <li>Log into the OBIEE dev-01 environment. If you don't have access to the dev-01 environment, you'll have to just follow along with me for now.</li>
+  <li>In the shared folder, under the Student Demographics & Outcomes folder, make a local copy the Graduation & Retention Dashboard (using More... Copy and then pasting the folder under My Folders (you can call it somethign like d3-ucb.</li>
+  <li>Open your local copy of the UGCohort Grad Data query which is used by the Graduation & Retention Dashboard.</li>
+  <li>On the Cal Answers Analysis Criteria tab, modify the query by changing the Student Headcount Column Properties as follows: in the Column Properties dialogue, on the Data Format tab, uncheck the box that says "Use 1000's Separator"</li>
+  <li>On the Results tab, modify the Analysis Properties by going to the Data tab and checking the box called "Include Null Values"</li>
+  <li>On the Results tab, add a Narrative View: Go to New Views... Other View... Narrative View</li>
+  <li>Here's a <a href='https://drive.google.com/a/berkeley.edu/file/d/0B-Ht2HFisLhZY1JFMEpZSkViTmM/view?usp=sharing' target='_blank'>handy annotated picture</a> of the Cal Answers Narrative View for your reference.</li>
+  <li>Add any CSS and HTML text in the <strong>Prefix</strong> box. It is here that you also instantiate the data array that will hold the output from your query on the Criteria tab. </li>
+  <li>The <strong>Narrative</strong> box is where you take the output from your OBIEE query and push it into the data array (called "data"). While you push each row, you can name the columns. Name the columns so that they match the properties that are referenced in the javascript code. For example, the data returned in column 1 should be called "semesterYearLetter".</li>
+  <li>The <strong>Postfix</strong> is where most of the javascript code resides, and where the manipulation of the query output happens, as well as where the elements of the visualization are created and appended to the page.</li>
+  <li>Also, be sure to check the box called "Contains HTML Markup" and if you're returning a lot of rows, the data  may be truncated unless you specify this an adequately high number to the "Rows to Display" text box. </li>
+  <li>Finally, keep in mind that The output will display below the Postfix box. If you see nothing, then something might have gone wrong...</li>
+
+</ol>
+
+</div>
+<div class="end">
+        <h3>Thank you!!! </h3>
+    </div>
+
+</div> <!-- /main -->
+        
+    </body>
+    <script>
+var colors = d3.scale.ordinal().range(["#5e4fa2", "#3288bd", "#e7298a","#e7298a","#e7298a","#e7298a","#66c2a5", "#abdda4", "#e6f598", "#ffffbf", "#fee08b", "#fdae61", "#f46d43",  "#9e0142","#d53e4f"]),
+     headline = d3.select("#stacked"),
+     letters = headline.text().split("");
+
+headline.text("");
+var blueLetters = headline.selectAll("span")
+    .data(letters)
+  .enter().append("span")
+    .text(function(d) { return d; })
+    .style("position", "relative");
+
+
+  blueLetters
+      .transition().delay(1000).duration(1000)
+      .style("color", function(d, i) {
+        return colors(i);
+      });
+</script>
+</html>
