@@ -43,7 +43,8 @@
 <h2>Now let’s add the chart to Cal Answers </h2>
 <ol>
   <li>Log into the OBIEE dev-01 environment. If you don't have access to the dev-01 environment, you'll have to just follow along with me for now.</li>
-  <li>In the shared folder, under the Student Demographics & Outcomes folder, make a local copy of the Graduation & Retention Dashboard (using More... Copy and then pasting the folder under My Folders. You can call it somethign like "d3-ucb").</li>
+  <li>In the shared folder, under the Student Demographics & Outcomes folder, make a local copy of the Graduation & Retention  (using More... Copy and then pasting the folder under My Folders. You can call it somethign like "d3-ucb").</li>
+  <li>Also copy the Graduation and Retention dashboard item (from inside the Dashboards folder) and place it within your local folder where you'll be working.</li>
   <li>Open your local copy of the UGCohort Grad Data query which is used by the Graduation & Retention Dashboard.</li>
   <li>On the Cal Answers Analysis Criteria tab, modify the query by changing the Student Headcount Column Properties as follows: in the Column Properties dialogue, on the Data Format tab, uncheck the box that says "Use 1000's Separator."</li>
   <li>On the Results tab, modify the Analysis Properties by going to the Data tab and checking the box called "Include Null Values"</li>
@@ -54,6 +55,7 @@
   <li>The <strong>Postfix</strong> is where most of the javascript code resides, and where the manipulation of the query output happens, as well as where the elements of the visualization are created and appended to the page.</li>
   <li>Also, be sure to check the box called "Contains HTML Markup" and if you're returning a lot of rows, the data  may be truncated unless you specify this an adequately high number to the "Rows to Display" text box. </li>
   <li>Finally, keep in mind that the output will display below the Postfix box. If you see nothing, then something might have gone wrong... and you'll want to use the browser developer tools to inspect the situation.</li>
+  <li>If you have access to the Cal Answers dev-01 environment, you can copy code from <a href='https://gist.github.com/saraquigley/f623ffa312f752a39ee5' target='_blank'>here</a> into the Narrative.</li>
 </ol>
 </div>
 <div class="end">
